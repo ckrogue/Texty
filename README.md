@@ -8,7 +8,7 @@ Texty was written in c.
 ## How To Use
 ### Building and Opening a File
 Clone this repo to your computer. Navigate into the texty folder. Run make. Then run ./texty and send in as a command line
-argument the file path to the file you would like to open. 
+argument the file path to the file you would like to open. Use q to exit the program.
 ### Config File
 Texty supports custom color configurations through a config file. In the repo make a config.txt file if it does not already exist.
 Inside of this file specify what you want your foreground and background color to be. If you only specify one color the other color
