@@ -163,7 +163,7 @@ void refreshScreen(void) {
     windowInformation.rowOffset++;
     cursorCoords.y = windowInformation.rows + windowInformation.rowOffset;
   }
-  write(STDOUT_FILENO, "\x1b[31m", 5);
+
   write(STDOUT_FILENO, "\x1b[?25l", 6);
   write(STDOUT_FILENO, "\x1b[H", 3);
   drawRows();
@@ -228,11 +228,18 @@ void loadFile(char *fileName) {
   
 }
 void handleArguments(int argc, char * argv[]) {
-  char red[3] = "red";
-  for (int i = 0; i < argc; i++) {
-    switch (argv[i]) {
-      case red:
-        break;
+  for (int i = 1; i < argc; i++) {
+    if(strcmp(argv[i], "red") == 0) {
+      write(STDOUT_FILENO, "\x1b[31m", 5);
+    }
+    else if(strcmp(argv[i], "green") == 0) {
+      write(STDOUT_FILENO, "\x1b[32m", 5);
+    }
+    else if(strcmp(argv[i], "cyan") == 0) {
+      write(STDOUT_FILENO, "\x1b[36m", 5);
+    }
+    else {
+      loadFile(argv[i]);
     }
 
   }
@@ -243,13 +250,8 @@ void handleArguments(int argc, char * argv[]) {
 int main(int argc, char *argv[]) {
   initializeTexty();
   startRawMode();
-  if (argc >= 2) {
-    loadFile(argv[1]);
-  }
+  handleArguments(argc, argv);
 
-  else {
-    displayWelcomeScreen();
-  }
 
   while (1) {
     refreshScreen();
