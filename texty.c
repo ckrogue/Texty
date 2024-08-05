@@ -247,6 +247,11 @@ void refreshScreen(void) {
     cursorCoords.y = windowInformation.rows + windowInformation.rowOffset;
   }
 
+  if(cursorCoords.y < windowInformation.rowOffset) {
+    windowInformation.rowOffset--;
+    cursorCoords.y = windowInformation.rowOffset;
+  }
+
   write(STDOUT_FILENO, "\x1b[?25l", 6);
   write(STDOUT_FILENO, "\x1b[H", 3);
   drawRows();
