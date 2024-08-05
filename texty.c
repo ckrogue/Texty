@@ -60,6 +60,97 @@ void initializeTexty(void) {
   rowList.numRows = 0;
   cursorCoords.x = 0;
   cursorCoords.y = 0;
+
+  FILE *file = fopen("config.txt", "r");
+
+  if (!file) {
+    return;
+  }
+
+  char optionOne[3] = "000";
+  char optionTwo[3] = "000";
+  for(int i = 0; i < 3; i++) {
+    optionOne[i] = fgetc(file);
+    if(optionOne[i] == '\n' || optionOne[i] == '\r' || optionOne[i] == EOF) {
+      return;
+    }
+  }
+
+  for(int i = 0; i < 3; i++) {
+    optionTwo[i] = fgetc(file);
+    if(optionTwo[i] == '\n' || optionTwo[i] == '\r' || optionTwo[i] == EOF) {
+      break;
+    }
+  }
+
+  fclose(file);
+
+  handleConfigOptions(optionOne);
+  handleConfigOptions(optionTwo);
+
+
+
+}
+
+void handleConfigOptions(char option[3]) {
+  if(option[0] == '-' ) {
+    if(option[1] == 'f') {
+      switch (option[2]) {
+        case 'd':
+          break;
+        case 'r':
+          write(STDOUT_FILENO, "\x1b[31m", 5);
+          break;
+        case 'g':
+          write(STDOUT_FILENO, "\x1b[32m", 5);
+          break;
+        case 'y':
+          write(STDOUT_FILENO, "\x1b[33m", 5);
+          break;
+        case 'b':
+          write(STDOUT_FILENO, "\x1b[34m", 5);
+          break;
+        case 'm':
+          write(STDOUT_FILENO, "\x1b[35m", 5);
+          break;
+        case 'c':
+          write(STDOUT_FILENO, "\x1b[36m", 5);
+          break;
+        case 'w':
+          write(STDOUT_FILENO, "\x1b[37m", 5);
+          break;
+        
+      }
+    }
+    if(option[1] == 'b') {
+      switch (option[2]) {
+        case 'd':
+          write(STDOUT_FILENO, "\x1b[40m", 5);
+          break;
+        case 'r':
+          write(STDOUT_FILENO, "\x1b[41m", 5);
+          break;
+        case 'g':
+          write(STDOUT_FILENO, "\x1b[42m", 5);
+          break;
+        case 'y':
+          write(STDOUT_FILENO, "\x1b[43m", 5);
+          break;
+        case 'b':
+          write(STDOUT_FILENO, "\x1b[44m", 5);
+          break;
+        case 'm':
+          write(STDOUT_FILENO, "\x1b[45m", 5);
+          break;
+        case 'c':
+          write(STDOUT_FILENO, "\x1b[46m", 5);
+          break;
+        case 'w':
+          write(STDOUT_FILENO, "\x1b[47m", 5);
+          break;
+    }
+  }
+  }
 }
 //taken from tutorial
 void startRawMode(void) {
