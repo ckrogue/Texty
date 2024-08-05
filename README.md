@@ -14,16 +14,16 @@ Texty supports custom color configurations through a config file. In the repo ma
 Inside of this file specify what you want your foreground and background color to be. If you only specify one color the other color
 will simply be the default. To specify foreground color use -f<your color code> and to specify background use -b<your color code>.
 Texty currently only supports eight color codes listed below:
-
->'r' == Red 
->'b' == Blue 
->'d' == Black 
->'m' == Magenta 
->'g' == Green 
->'y' == Yellow 
->'c' == Cyan 
->'w' == White 
-
+'''
+'r' == Red \n
+'b' == Blue \n
+'d' == Black \n
+'m' == Magenta \n
+'g' == Green \n
+'y' == Yellow \n
+'c' == Cyan \n
+'w' == White \n
+'''
 An example config.txt file that sets the background to red and foreground to yellow would look like this:
 
 -br-fy
