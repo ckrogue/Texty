@@ -217,7 +217,7 @@ void moveCursor(enum Direction direction) {
       }
       break;
     case RIGHT:
-      if(cursorCoords.x < windowInformation.rows - 1) {
+      if(cursorCoords.x < windowInformation.cols - 1) {
         cursorCoords.x++;
       }
       break;
@@ -225,10 +225,22 @@ void moveCursor(enum Direction direction) {
       if(cursorCoords.y > 0) {
         cursorCoords.y--;
       }
+      else {
+        cursorCoords.y = 0;
+        if(windowInformation.rowOffset > 0) {
+          windowInformation.rowOffset--;
+        }
+      }
       break;
     case DOWN:
-      if(cursorCoords.y < rowList.numRows - 1) {
+      if(cursorCoords.y < windowInformation.rows - 1) {
         cursorCoords.y++;
+      }
+      else {
+        cursorCoords.y = windowInformation.rows - 1;
+        if (windowInformation.rows + windowInformation.rowOffset < rowList.numRows) {
+          windowInformation.rowOffset++;
+        }
       }
       break;
   }
@@ -242,15 +254,15 @@ void cleanExit(void) {
 }
 
 void refreshScreen(void) {
-  if(cursorCoords.y > windowInformation.rows + windowInformation.rowOffset) {
-    windowInformation.rowOffset++;
-    cursorCoords.y = windowInformation.rows + windowInformation.rowOffset;
-  }
+  // if(cursorCoords.y > windowInformation.rows + windowInformation.rowOffset) {
+  //   windowInformation.rowOffset++;
+  //   cursorCoords.y = windowInformation.rows + windowInformation.rowOffset;
+  // }
 
-  if(cursorCoords.y < windowInformation.rowOffset) {
-    windowInformation.rowOffset--;
-    cursorCoords.y = windowInformation.rowOffset;
-  }
+  // if(cursorCoords.y < windowInformation.rowOffset) {
+  //   windowInformation.rowOffset--;
+  //   cursorCoords.y = windowInformation.rowOffset;
+  // }
 
   write(STDOUT_FILENO, "\x1b[?25l", 6);
   write(STDOUT_FILENO, "\x1b[H", 3);
